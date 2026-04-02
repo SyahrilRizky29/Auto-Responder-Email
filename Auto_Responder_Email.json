@@ -1,0 +1,105 @@
+{
+  "name": "My workflow 11",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Pendaftaran Kelas AI",
+        "formDescription": "Silakan isi data diri Anda untuk konfirmasi pendaftaran.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Nama",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "placeholder": "emailanda@gmail.com",
+              "defaultValue": "@gmail.com",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Kelas",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Kelas Dasar"
+                  },
+                  {
+                    "option": "Kelas Menengah"
+                  },
+                  {
+                    "option": "Kelas Mahir"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        -160
+      ],
+      "id": "8209b96d-d04e-439a-b8e4-9b16fe6e5c49",
+      "name": "On form submission",
+      "webhookId": "76c76b09-2277-4485-8bfd-f7f6291589ec"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json[\"Email\"] }}",
+        "subject": "=Konfirmasi Pendaftaran - {{ $json[\"Nama\"] }}",
+        "message": "=<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF-8\">\n    <style>\n        .container {\n            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;\n            line-height: 1.6;\n            color: #333;\n            max-width: 600px;\n            margin: 0 auto;\n            border: 1px solid #e0e0e0;\n            border-radius: 10px;\n            overflow: hidden;\n        }\n        .header {\n            background-color: #4A90E2;\n            color: white;\n            padding: 20px;\n            text-align: center;\n        }\n        .content {\n            padding: 30px;\n            background-color: #ffffff;\n        }\n        .footer {\n            background-color: #f9f9f9;\n            padding: 15px;\n            text-align: center;\n            font-size: 12px;\n            color: #777;\n        }\n        .highlight {\n            color: #4A90E2;\n            font-weight: bold;\n        }\n        .button {\n            display: inline-block;\n            padding: 10px 20px;\n            background-color: #4A90E2;\n            color: white;\n            text-decoration: none;\n            border-radius: 5px;\n            margin-top: 20px;\n        }\n    </style>\n</head>\n<body>\n    <div class=\"container\">\n        <!-- Header -->\n        <div class=\"header\">\n            <h2>Konfirmasi Pendaftaran</h2>\n        </div>\n\n        <!-- Body Content -->\n        <div class=\"content\">\n            <p>Halo, <strong>{{ $json.Nama }}</strong>! 👋</p>\n            \n            <p>Terima kasih telah melakukan pendaftaran. Kami sangat senang menginformasikan bahwa data Anda telah berhasil kami terima.</p>\n            \n            <p>Berikut adalah detail pendaftaran Anda:</p>\n            <ul style=\"list-style: none; padding-left: 0;\">\n                <li>📍 <strong>Kelas:</strong> <span class=\"highlight\">{{ $json.Kelas }}</span></li>\n                <li>📧 <strong>Email:</strong> {{ $json.Email }}</li>\n            </ul>\n\n            <p>Informasi lebih lanjut mengenai jadwal dan akses kelas akan dikirimkan melalui email ini dalam waktu dekat. Pastikan untuk selalu mengecek folder inbox atau spam Anda secara berkala.</p>\n            \n            <p>Sampai jumpa di kelas!</p>\n        </div>\n\n        <!-- Footer -->\n        <div class=\"footer\">\n            <p>&copy; 2026 Tim Admin NF Academy. Seluruh Hak Cipta Dilindungi.</p>\n            <p>Email ini dikirim secara otomatis, mohon tidak membalas email ini.</p>\n        </div>\n    </div>\n</body>\n</html>",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        448,
+        -160
+      ],
+      "id": "55b56386-3c4f-4acc-87cd-ce7b81e5bb08",
+      "name": "Send Confirmation Email",
+      "webhookId": "05a6e93b-7b4a-4c98-b061-d57f831a2c99",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Ihdx0HS9twKzsBHm",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Send Confirmation Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "1e2ce06c-c8f2-44ca-b022-40ae4eeac8bf",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e7762260969ce1b1f607bc86cdcbb8007b0ded25e792ccdc3c7592b5a1230f59"
+  },
+  "id": "ySshY2S4kG5tvv4u",
+  "tags": []
+}
